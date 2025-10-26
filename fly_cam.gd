@@ -22,6 +22,18 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	_check_mouse_capture(event)
 	
+	if not _mouse_captured:
+		return
+		
+	# Camera motion
+	if event is InputEventMouseMotion:
+		_yaw = fmod(_yaw - event.relative.x * look_sensitivity, 360)
+		_pitch = clamp(_pitch - event.relative.y * look_sensitivity, PITCH_MIN, PITCH_MAX)
+		
+		_cam_pivot.rotation.y = deg_to_rad(_yaw)
+		_cam.rotation.x = deg_to_rad(_pitch)
+	
+	
 func _capture_mouse() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_mouse_captured = true
