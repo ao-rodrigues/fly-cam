@@ -54,6 +54,8 @@ func _handle_movement(delta: float) -> void:
 		if Input.is_action_pressed("move_backwards"): dir += aim.z
 		if Input.is_action_pressed("move_left"): dir -= aim.x
 		if Input.is_action_pressed("move_right"): dir += aim.x
+		if Input.is_action_pressed("move_up"): dir += aim.y
+		if Input.is_action_pressed("move_down"): dir -= aim.y
 		if Input.is_action_pressed("sprint"): speed *= sprint_multiplier
 	
 	dir = dir.normalized()
