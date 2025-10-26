@@ -19,7 +19,21 @@ func _ready() -> void:
 	_capture_mouse()
 	
 	
+func _unhandled_input(event: InputEvent) -> void:
+	_check_mouse_capture(event)
+	
 func _capture_mouse() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_mouse_captured = true
 	
+func _release_mouse() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_mouse_captured = false
+
+func _check_mouse_capture(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
+			_capture_mouse()
+	elif event is InputEventKey:
+		if event.keycode == Key.KEY_ESCAPE and event.pressed:
+			_release_mouse()
