@@ -1,5 +1,10 @@
-[gd_scene format=3 uid="uid://dncuqiv7nii6q"]
+[gd_scene load_steps=2 format=3 uid="uid://dncuqiv7nii6q"]
+
+[ext_resource type="Script" uid="uid://bcx6a2wjkv574" path="res://fly_cam.gd" id="1_73tlc"]
 
 [node name="FlyCam" type="Node3D"]
+script = ExtResource("1_73tlc")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
