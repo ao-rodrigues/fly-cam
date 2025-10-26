@@ -19,6 +19,10 @@ func _ready() -> void:
 	_capture_mouse()
 	
 	
+func _process(delta: float) -> void:
+	_handle_movement(delta)
+	
+	
 func _unhandled_input(event: InputEvent) -> void:
 	_check_mouse_capture(event)
 	
@@ -38,6 +42,26 @@ func _capture_mouse() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_mouse_captured = true
 	
+	
+func _handle_movement(delta: float) -> void:
+	var aim: Basis = _cam.get_camera_transform().basis
+	
+	var dir: Vector3 = Vector3.ZERO
+	var speed: float = base_speed
+	
+	if _mouse_captured:
+		if Input.is_action_pressed("move_forward"): dir -= aim.z
+		if Input.is_action_pressed("move_backwards"): dir += aim.z
+		if Input.is_action_pressed("move_left"): dir -= aim.x
+		if Input.is_action_pressed("move_right"): dir += aim.x
+		if Input.is_action_pressed("sprint"): speed *= sprint_multiplier
+	
+	dir = dir.normalized()
+	
+	var target: Vector3 = dir * speed
+	position += target * delta
+	
+
 func _release_mouse() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_mouse_captured = false
