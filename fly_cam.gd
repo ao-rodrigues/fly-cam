@@ -14,3 +14,12 @@ var _pitch: float = 0
 
 @onready var _cam: Camera3D = $CameraPivot/Camera
 @onready var _cam_pivot: Node3D = $CameraPivot
+
+func _ready() -> void:
+	_capture_mouse()
+	
+	
+func _capture_mouse() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	_mouse_captured = true
+	
